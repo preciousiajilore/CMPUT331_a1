@@ -129,11 +129,14 @@ def decrypt(message: str, key: str, letters: str = LETTERS):
 def test():
     global SHIFTDICT, LETTERDICT 
     SHIFTDICT, LETTERDICT = get_map()
+    #SHIFTDICT, LETTERDICT = get_map("ZYXWVUTSRQPONMLKIGFEDCBAH")
     assert decrypt(encrypt("FOO", "G"), "G") == "FOO"
     #encrypted = encrypt("WELCOME TO 2026 WINTER CMPUT 331!", "X")
     #print("Encrypted message:", encrypted)
     #decrypted = decrypt(encrypted, "X")
-    #print("Decrypted message:", decrypted)
+    #print("Decrypted message:", decrypted)\
+   
+
 
 if __name__ == "__main__" and not flags.interactive:
     test()
