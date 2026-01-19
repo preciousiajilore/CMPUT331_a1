@@ -57,7 +57,8 @@ def get_map(letters=LETTERS):
 def encrypt(message: str, key: str, letters: str = LETTERS) -> str:
     """
     Docstring for encrypt
-    should return the message string such that each letter has been caesar shifted by the 
+    should return the message string such that each letter has been caesar shifted by the key
+    but the key changes to the previous plaintext letter for each letter encrypted
     :param message: Description
     :type message: str
     :param key: Description
@@ -67,14 +68,14 @@ def encrypt(message: str, key: str, letters: str = LETTERS) -> str:
     :return: Description
     :rtype: str
     """
-
-    n = len(letters)
     char_to_index, index_to_char = get_map(letters)
+    current_key = key.upper()
+    n = len(letters)
     #key amount
     message = message.upper()
     key = key.upper()
 
-    if key not in letters:
+    if current_key not in letters:
         raise ValueError("Key must be a single letter in LETTERS")
     
     result = []
@@ -82,12 +83,13 @@ def encrypt(message: str, key: str, letters: str = LETTERS) -> str:
         if char in letters:
             #do the shifting here
             m = char_to_index[char]
-            k = char_to_index[key]
+            k = char_to_index[current_key]
             c = (m + k) % n
             #get the encrypted character from index_to_char
             encrypted_char = index_to_char[c]
             #append to result string
             result.append(encrypted_char)
+            current_key = char  # update the key to the current plaintext letter
         else:
             #non-letter characters are not changed
             result.append(char)
@@ -107,9 +109,9 @@ def decrypt(message: str, key: str, letters: str = LETTERS):
     """
     char_to_index, index_to_char = get_map(letters)
     n = len(letters)
-    key = key.upper()
+    current_key = key.upper()
 
-    if key not in letters:
+    if current_key not in letters:
         raise ValueError("Key must be a single letter in LETTERS")
     
     message = message.upper()
@@ -118,10 +120,11 @@ def decrypt(message: str, key: str, letters: str = LETTERS):
     for char in message:
         if char in letters:
             m = char_to_index[char]
-            k = char_to_index[key]
+            k = char_to_index[current_key]
             c = (m - k) % n
             decrypted_char = index_to_char[c]
             result.append(decrypted_char)
+            current_key = decrypted_char  # update the key to the current plaintext letter
         else:
             result.append(char)
     return ''.join(result)
@@ -132,11 +135,16 @@ def test():
     global SHIFTDICT, LETTERDICT 
     SHIFTDICT, LETTERDICT = get_map()
     #SHIFTDICT, LETTERDICT = get_map("ZYXWVUTSRQPONMLKIGFEDCBAH")
-    assert decrypt(encrypt("FOO", "G"), "G") == "FOO"
-    #encrypted = encrypt("WELCOME TO 2026 WINTER CMPUT 331!", "X")
-    #print("Encrypted message:", encrypted)
-    #decrypted = decrypt(encrypted, "X")
-    #print("Decrypted message:", decrypted)\
+    #assert decrypt(encrypt("FOO", "G"), "G") == "FOO"
+    encrypted = encrypt("THIS IS PROBLEM 2 OF ASSIGNMENT 1.", "X")
+    print("Encrypted message:", encrypted)
+    decrypted = decrypt(encrypted, "X")
+    print("Decrypted message:", decrypted)
+
+    msg = "THIS IS PROBLEM 2 OF ASSIGNMENT 1."
+    key = "X"
+    assert decrypt(encrypt(msg, key), key) == msg.upper()
+    assert decrypt(encrypt("A!A", "B"), "B") == "A!A"
    
 
 

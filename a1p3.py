@@ -45,17 +45,49 @@ LETTERS = 'ABCDEFGHIKLMNOPQRSTUVWXYZ'
 
 def crack_caesar(ciphertext, val_words):
     
-    raise NotImplementedError()
+    #for ech letter in LETTERS: candidate plaintext = decrypt(ciphertext, letter)
+    #count how many words in candidate plaintext are in val_words
+    #keep track of the candidate plaintext with the highest count of valid words
+    best_count = 0
+    best_plaintext = None
+    best_key = None
+    for letter in LETTERS:
+        possible_plaintext = decrypt(ciphertext, letter)
+        words = possible_plaintext.split()
+        count = 0
+        for token in words:
+            if token in val_words:
+                count += 1
+        if count > best_count or (count == best_count and (best_plaintext is None or possible_plaintext < best_plaintext)):
+            best_count = count
+            best_plaintext = possible_plaintext
+            best_key = letter
+    return (best_plaintext, best_key)
 
 
 def form_dictionary(text_address='carroll-alice.txt'):
-    raise NotImplementedError()
+    with open(text_address, 'r') as f:
+        text = f.read()
+    text = text.upper()
+    #remove punctuation 
+    for char in text:
+        if char not in LETTERS and char != ' ' and char != '\n':
+            text = text.replace(char, '')
+    words = text.split()
+    word_set = set(words)
+    return word_set
 
 
 
 def test():
+    #testing dictionary formation
+    dictionary = form_dictionary()
+    #print("word in dictionary:", list(dictionary)[0])
+    #assert 'ALICE' in dictionary
+    #assert 'WONDERLAND' in dictionary
+    #assert 'XYZ' not in dictionary
     assert crack_caesar('TBHZLIB QL TLKABOHXKA', form_dictionary()) == ('WELCOME TO WONDERLAND', 'X')
-
+    print(crack_caesar("TBHZLIB QL TLKABOHXKA", form_dictionary()))
 
 if __name__ == "__main__" and not flags.interactive:
     test()
