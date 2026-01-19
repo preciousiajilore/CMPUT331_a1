@@ -4,21 +4,21 @@ Note:
 2. Any other change in the template might result in a potential mark deduction.
 
 Original caesar cipher
-  Answer: ___ (Number)
-  Explanation: ___ (10-20 words)
+  Answer: 26 (Number)
+  Explanation: Key is one of the 26 letters therefore there are 26 possible shifts (10-20 words)
 
 Problem 1 implementation
-  Answer: ___ (Number)
-  Explanation: ___ (10-20 words)
+  Answer: 25 (Number)
+  Explanation: LETTERS is missing "J" therefore the ket is one of the 25 letters so we have 25 possible shifts(10-20 words)
 
 Problem 2 implementation
-  Answer: ___ (Number)
-  Explanation: ___ (10-20 words)
+  Answer: 25 (Number)
+  Explanation: Since only the initial key is chosen we end up with 25 possibilities (10-20 words)
 
 4b. Is the problem 2 cipher stronger than the original Caesar cipher?
-  Answer: ___ (Yes/No)
-  Explanation: ___ (10-20 words)
+  Answer: Yes (Yes/No)
+  Explanation: The key changes based on the previous plaintext, hiding fixed-shift patterns and frequencies  (10-20 words)
 
 4c. Will encrypting the space help address the weaknesses of the Caesar cipher?
-  Answer: ___ (Yes/No)
-  Explanation: ___ (10-20 words)
+  Answer: Yes (Yes/No)
+  Explanation: It would hide the word boundaries (10-20 words)
