@@ -71,10 +71,10 @@ def encrypt(message: str, key: str, letters: str = LETTERS) -> str:
     n = len(letters)
     char_to_index, index_to_char = get_map(letters)
     #key amount
-    message = message.upper()
-    key = key.upper()
+    message = message.upper().replace("J", "I")
+    key = key.upper().replace("J", "I")
 
-    if key not in letters:
+    if key not in char_to_index:
         raise ValueError("Key must be a single letter in LETTERS")
     
     result = []
@@ -94,7 +94,7 @@ def encrypt(message: str, key: str, letters: str = LETTERS) -> str:
     result = ''.join(result)
     return result
 
-def decrypt(message: str, key: str, letters: str = LETTERS):
+def decrypt(message: str, key: str, letters: str = LETTERS) -> str:
     """
     Docstring for decrypt
     #reverse the shift performed in encrypt
@@ -107,12 +107,14 @@ def decrypt(message: str, key: str, letters: str = LETTERS):
     """
     char_to_index, index_to_char = get_map(letters)
     n = len(letters)
-    key = key.upper()
+    #key = key.upper()
+    message = message.upper().replace("J", "I")
+    key = key.upper().replace("J", "I")
 
-    if key not in letters:
+    if key not in char_to_index:
         raise ValueError("Key must be a single letter in LETTERS")
     
-    message = message.upper()
+   #message = message.upper()
     result = []
 
     for char in message:

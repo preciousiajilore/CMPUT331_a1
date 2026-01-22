@@ -69,13 +69,17 @@ def encrypt(message: str, key: str, letters: str = LETTERS) -> str:
     :rtype: str
     """
     char_to_index, index_to_char = get_map(letters)
-    current_key = key.upper()
+    #current_key = key.upper()
     n = len(letters)
     #key amount
-    message = message.upper()
-    key = key.upper()
+    #message = message.upper()
+    #key = key.upper()
 
-    if current_key not in letters:
+    message = message.upper().replace("J", "I")
+    key = key.upper().replace("J", "I")
+    current_key = key
+
+    if current_key not in char_to_index:
         raise ValueError("Key must be a single letter in LETTERS")
     
     result = []
@@ -109,12 +113,15 @@ def decrypt(message: str, key: str, letters: str = LETTERS):
     """
     char_to_index, index_to_char = get_map(letters)
     n = len(letters)
-    current_key = key.upper()
 
-    if current_key not in letters:
+    message = message.upper().replace("J", "I")
+    key = key.upper().replace("J", "I")
+    current_key = key
+
+    if current_key not in char_to_index:
         raise ValueError("Key must be a single letter in LETTERS")
+
     
-    message = message.upper()
     result = []
 
     for char in message:
@@ -136,10 +143,10 @@ def test():
     SHIFTDICT, LETTERDICT = get_map()
     #SHIFTDICT, LETTERDICT = get_map("ZYXWVUTSRQPONMLKIGFEDCBAH")
     #assert decrypt(encrypt("FOO", "G"), "G") == "FOO"
-    encrypted = encrypt("THIS IS PROBLEM 2 OF ASSIGNMENT 1.", "X")
-    print("Encrypted message:", encrypted)
-    decrypted = decrypt(encrypted, "X")
-    print("Decrypted message:", decrypted)
+    #encrypted = encrypt("THIS IS PROBLEM 2 OF ASSIGNMENT 1.", "X")
+    #print("Encrypted message:", encrypted)
+    #decrypted = decrypt(encrypted, "X")
+    #print("Decrypted message:", decrypted)
 
     msg = "THIS IS PROBLEM 2 OF ASSIGNMENT 1."
     key = "X"
